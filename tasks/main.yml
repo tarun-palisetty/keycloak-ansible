@@ -32,3 +32,7 @@
     dest: /etc/profile.d/keycloak.sh
     mode: 0644
   
+- name: start keycloak
+  become: yes
+  become_user: root
+  shell: /usr/local/keycloak/bin/standalone.sh -b 0.0.0.0

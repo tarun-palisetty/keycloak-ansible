@@ -2,4 +2,3 @@
 keycloak_ver: '3.0.0.Final'
 keycloak_mirror: https://downloads.jboss.org/keycloak
 keycloak_parent_install_dir: /usr/local
-
