@@ -1,4 +1,5 @@
 ---
+
 - name: download tgz
   become: yes
   become_user: root
@@ -6,7 +7,7 @@
     url: '{{keycloak_tgz_url}}'
     dest: /tmp/{{keycloak_tgz}}
     mode: 0644
-
+    
 - name: unarchive
   become: yes
   become_user: root
@@ -24,6 +25,7 @@
     dest: '{{keycloak_parent_install_dir}}/keycloak'
     state: link
 
+
 - name: add to path
   become: yes
   become_user: root
@@ -31,8 +33,14 @@
     src: keycloak.sh.j2
     dest: /etc/profile.d/keycloak.sh
     mode: 0644
+    
+- name: add user
+  become: yes
+  become_user: root
+  shell: '{{keycloak_parent_install_dir}}/keycloak/bin/add-user-keycloak.sh -r master -u admin -p password'
+  
   
 - name: start keycloak
   become: yes
   become_user: root
-  shell: /usr/local/keycloak/bin/standalone.sh -b 0.0.0.0
+  shell: '{{keycloak_parent_install_dir}}/keycloak/bin/standalone.sh -b 0.0.0.0'
